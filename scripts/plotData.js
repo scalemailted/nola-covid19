@@ -4,7 +4,7 @@ const plotData = function(data, xLabel, yLabels, colors){
     const domainX = data.map( row => row [xLabel]);
     const domainY = yLabels.flatMap( col => data.map( row => row[col])   )
 
-    let height  = window.innerHeight *.9;
+    let height  = window.innerHeight *.6;
     let width   = window.innerWidth;
 
     const margin = {top: 40, right: 40, bottom: 40, left: 40};

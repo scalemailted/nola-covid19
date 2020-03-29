@@ -1,6 +1,6 @@
 <html>
     <head>
-        <link rel="icon" href="assets/nola-flavacon.png" sizes="16x16" type="image/png"> 
+        <link rel="icon" href="assets/flavicon.png" sizes="16x16" type="image/png"> 
         <title>NOLA COVID-19 Data</title>
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
@@ -11,6 +11,12 @@
         <link rel="stylesheet" href="styles/styles.css">
     </head>
     <body>
+        <div class="jumbotron m-0 text-white" id='showcase'>
+            <div class='container'>
+                <h1 class='font-weight-bold strokeme'>NOLA COVID-19 Data Visualizations </h1>
+                <h4 class='font-weight-bold strokeme'>Updated daily at noon.</h4>
+            </div>
+        </div>
         <div id='controllers' class="btn-group d-flex justify-content-center"></div>
         <button id='dataset-controller' class='btn btn-block bg-dark text-white font-weight-bold'>
             <i class="fas fa-arrow-alt-circle-right"></i> Total Counts
@@ -27,6 +33,7 @@
         </footer>
         <script src='scripts/controllers.js'></script>
         <script src='scripts/plotData.js'></script>
+        <script src='scripts/displayTable.js'></script>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"</script>
