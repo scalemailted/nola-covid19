@@ -57,8 +57,7 @@ body {
     background-image: url(../assets/jumbotron.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-    /*background-attachment: fixed;*/
+    background-position: center;  
   }
 
   .strokeme
@@ -69,4 +68,9 @@ body {
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000;  
+    font-family: 'Montserrat', sans-serif;
 }
+
+
+
+
