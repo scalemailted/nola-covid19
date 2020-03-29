@@ -34,3 +34,21 @@ body {
   .btn:hover{
     outline: black solid 1px;
   }
+
+  .fa-arrow-alt-circle-right{
+    animation: sideways 2s ease infinite;
+  }
+
+  @keyframes sideways {
+    0% {
+      transform: translateX(-20%);
+    }
+  
+    50% {
+      transform: translateX(10%);
+    }
+  
+    100% {
+      transform: translateX(-20%);
+    }
+  }

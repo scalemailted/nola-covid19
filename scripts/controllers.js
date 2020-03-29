@@ -38,12 +38,12 @@ const initDatasetController = function(){
 
 const toggleDataset = function(){
     const btn = document.getElementById("dataset-controller");
-    if (btn.innerText === "Total Counts"){
-        btn.innerText = "Daily Differentials";
+    if (btn.innerText.includes("Total Counts")){
+        btn.innerHTML = "Daily Differentials";
         isDailyData = false;
     }
     else{
-        btn.innerText = "Total Counts";
+        btn.innerHTML = "Total Counts";
         isDailyData = true;
     }
     getPlot();
