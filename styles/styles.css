@@ -27,3 +27,7 @@ body {
       border: #CCC solid 1px;
       background-color: white;
   }
+
+  .btn{
+      outline:#CCC solid 2px;
+  }
