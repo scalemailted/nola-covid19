@@ -1,9 +1,9 @@
-const collapsibleTable = function(data){
-    const collapsible = `<button class="btn btn-block btn-primary" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
-        COVID-19 Table 
+const collapsibleTable = function(data, label, id){
+    const collapsible = `<button class="btn btn-block btn-primary" data-toggle="collapse" data-target="#${id}" aria-expanded="false" aria-controls="${id}">
+        ${label} 
     </button>
-    <div class="collapse" id="collapse"> ${ renderTable(data)}</div>`
-    document.getElementById('tableData').innerHTML = collapsible;
+    <div class="collapse" id="${id}"> ${ renderTable(data)}</div>`
+    document.getElementById('tableData').innerHTML += collapsible;
 }
 
 const renderTable = function(data){

@@ -184,7 +184,8 @@ window.onload = async () => {
     initControllers(colors)
     //plotData(data,'Date', ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'], colors);
     //renderTable(data)
-    collapsibleTable(data);
+    collapsibleTable(data, 'COVID-19 Table - Total Counts', 'total');
+    collapsibleTable(diffData, 'COVID-19 Table - Daily Differentials', 'differ');
 };
 
 
