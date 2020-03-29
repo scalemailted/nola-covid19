@@ -1,5 +1,5 @@
 const collapsibleTable = function(data, label, id){
-    const collapsible = `<button class="btn btn-block btn-primary" data-toggle="collapse" data-target="#${id}" aria-expanded="false" aria-controls="${id}">
+    const collapsible = `<button class="btn btn-block btn-light-outline" data-toggle="collapse" data-target="#${id}" aria-expanded="false" aria-controls="${id}">
         ${label} 
     </button>
     <div class="collapse" id="${id}"> ${ renderTable(data)}</div>`
