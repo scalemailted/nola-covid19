@@ -56,8 +56,7 @@ const restoreData = function(){
         const json = localStorage.getItem('covidData');
         const data = JSON.parse(json);
         data.forEach( d=> d.Date = new Date(d.Date));
-        //if ( data.some( d => isToday(d.Date) )){
-        if (true){
+        if ( data.some( d => isToday(d.Date) )){
             return data
         }
     }
