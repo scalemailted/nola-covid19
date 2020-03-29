@@ -183,7 +183,8 @@ window.onload = async () => {
     const colors = getColors(data);
     initControllers(colors)
     //plotData(data,'Date', ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'], colors);
-    renderTable(data)
+    //renderTable(data)
+    collapsibleTable(data);
 };
 
 

@@ -1,6 +1,14 @@
+const collapsibleTable = function(data){
+    const collapsible = `<button class="btn btn-block btn-primary" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+        COVID-19 Table 
+    </button>
+    <div class="collapse" id="collapse"> ${ renderTable(data)}</div>`
+    document.getElementById('tableData').innerHTML = collapsible;
+}
+
 const renderTable = function(data){
     const table = `<table class='table table-striped'> ${renderTableHead(data[0])} ${renderTableBody(data)} </table>`;
-    document.getElementById('tableData').innerHTML = table.replace(/,/g, '');
+    return table.replace(/,/g, '');
 }
 
 const renderTableHead = function(row){
@@ -19,6 +27,6 @@ const renderTableRow = function( row ){
 
 const renderTD = function (datum){
     text = datum instanceof Date ? datum.toDateString() : String(datum);
-    return `<td>${ text }</td>`
+    return `<td>${ text }</td>`;
 }
 
