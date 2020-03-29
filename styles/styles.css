@@ -29,5 +29,8 @@ body {
   }
 
   .btn{
-      outline:#CCC solid 2px;
+      outline:#CCC solid 1px;
+  }
+  .btn:hover{
+    outline: black solid 1px;
   }

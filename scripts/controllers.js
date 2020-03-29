@@ -54,5 +54,6 @@ const initControllers = function(colors){
     //labelList.forEach( label => addButton(label, colors[label]))
     colorData = colors;
     initDatasetController();
+    ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'].forEach(label=>toggleSelection(label));
 }
 

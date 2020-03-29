@@ -182,7 +182,7 @@ window.onload = async () => {
     diffData = getDifferentialData(data)
     const colors = getColors(data);
     initControllers(colors)
-    plotData(data,'Date', ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'], colors);
+    //plotData(data,'Date', ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'], colors);
 };
 
 
