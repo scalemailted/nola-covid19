@@ -13,6 +13,13 @@ const initDisplayPercents = function(){
         }
     }
     initRates();
+    displayValueHead();
+    for (let label of Object.keys(colorData)){
+        if (label != 'Date'){
+            renderValueCard(label, colorData[label])
+        }
+    }
+
 }
 
 const renderCard = function(label,color){
@@ -74,4 +81,24 @@ const initRates = function(){
     document.getElementById('fatality-rate').innerHTML += table;
     */
 
+}
+
+const renderValueCard = function(label,color){
+    const index = diffData.length-1
+    const todayData = diffData[index][label];
+    const card= `<div class='card bg-light mx-0 px-0'>
+                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                        <p class="card-text text-center"> ${label}</p>
+                    </div>
+                    <div class='card-body mx-0 px-0'>
+                        <h4 class='card-text text-center font-weight-bold'>${todayData}</h4>
+                    </div>
+                </div>`;
+    document.getElementById('daily-value-deck').innerHTML += card;
+}
+
+const displayValueHead = function(){
+    const header = document.getElementById('today-values');
+    const today = data[data.length-1]['Date']
+    header.innerText += ' ' +today.toDateString(); 
 }
