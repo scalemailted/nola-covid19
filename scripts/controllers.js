@@ -1,6 +1,7 @@
 const selections = new Set();
 let colorData;
 let isDailyData = true;
+let speed;
 
 const addButton = function(label, color){
     const controllers = document.getElementById('controllers');
@@ -49,11 +50,26 @@ const toggleDataset = function(){
     getPlot();
 }
 
+const initAnimationController = function(){
+    const slider = document.getElementById('animation-speed'); 
+    slider.addEventListener('change', animationHandler);
+    animationHandler();
+}
+
+const animationHandler = function(e){
+    const slider = document.getElementById('animation-speed'); 
+    const viewer =  document.getElementById('speed-view');
+    viewer.innerText = slider.value; 
+    speed = +slider.value;
+    getPlot();
+} 
+
 const initControllers = function(colors){
     Object.keys(colors).forEach( key => addButton(key, colors[key]) )
     //labelList.forEach( label => addButton(label, colors[label]))
     colorData = colors;
     initDatasetController();
+    initAnimationController();
     ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'].forEach(label=>toggleSelection(label));
 }
 

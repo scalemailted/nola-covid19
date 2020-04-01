@@ -11,6 +11,7 @@
         <script src="scripts/d3.v5.min.js"></script>
         <script src='scripts/getData.js'></script>
         <link rel="stylesheet" href="styles/styles.css">
+
     </head>
     <body>
         <div class="jumbotron m-0" id='showcase'>
@@ -24,12 +25,29 @@
             <i class="fas fa-arrow-alt-circle-right"></i> Total Counts
         </button>
         <svg id='view' width=0 height=0 ></svg>
-        <div id='tableData' class='container-fluid'></div>
+
+        <div class='row container-fluid mt-2' id='aux-controllers'>
+            <div class='col-3'>
+                <div class="form-group">
+                <label class="formControlRange" for="animation-speed">Animation Speed:
+                    <button disabled class='btn btn-light btn-sm' id='speed-view'></button>
+                </label>
+                <input class="form-control-range" type="range" id="animation-speed" name="animation-speed" min="0" max="10" value="4">
+                </div>
+            </div>
+        </div>
+
+
+        <div id='tableData' class='container-fluid mt-2'>
+            <hr>
+            <h3>Data Tables</h3>
+            <p>Click on the tables below to expand/collapse the rows </p>
+        </div>
         <footer class="page-footer font-small blue">
             <div class="footer-copyright text-center py-3">
                 <a href="http://www.github.com/scalemailted/" target='_blank'> 
                     <i class="fab fa-github"></i>
-                    Ted Holmberg,  © 2020
+                    Ted Holmberg,  2020
                     
                 </a>
             </div>          

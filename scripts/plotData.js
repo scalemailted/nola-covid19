@@ -1,3 +1,134 @@
+const getLinearEquation = function(x2,y2){
+    const b = y2/x2;
+    return b;
+}
+
+const getLinearPoints = function(b, start, steps){
+    const linearLine = [];
+    for (let i=0; i< start; i++){
+        linearLine.push({'y':0});
+    }
+    for (let i=1; i<=steps; i++){
+        linearLine.push({ 'y': ~~(b*i) })
+    }
+    return linearLine;
+}
+
+const plotLinearLine = function(config){
+    const {svg, x, y, data, xLabel, yLabel} = config;
+    const max = d3.max( data.map( row => row[yLabel]) );
+    const start = data.findIndex( row => row[yLabel]>0 );
+    const steps = data.length - start
+    const min = data[start][yLabel]
+    console.log(min, max, steps, start);
+    const b = getLinearEquation(x2=steps, y2=max);
+    yValues = getLinearPoints(b, start, steps);
+    xValues = data.map( row => { return {'x': row[xLabel] } })
+    const lineData = [];
+    for (let i=0; i<xValues.length; i++){
+        const row = {'x':xValues[i].x, 'y': yValues[i].y}
+        lineData.push(row);
+    }
+    console.log(lineData)
+    
+    
+    const valueline = d3.line()
+            .x( d => x(d.x) )
+            .y( d => y(d.y) )
+            .curve(d3.curveMonotoneX);
+
+
+    var path = svg.append("path")
+        .data([lineData])
+        .attr("class", "line")
+        .style("stroke", 'rgba(125,125,125,0.3)')
+        .attr("d", valueline);
+    
+    // Variable to Hold Total Length
+    var duration = speed * 1000; //6000
+    var totalLength = path.node().getTotalLength();
+ 
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition() // Call Transition Method
+        .duration(duration) // Set Duration timing (ms)
+        .ease(d3.easeLinear) // Set Easing option
+        .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+
+}
+
+
+const getExpotentialEquation = function(x2,y2){
+//const getExpotentialEquation = function(x1,y1,x2,y2){
+    //const b = (y2/y1)**(1/x2);
+    const b = (y2)**(1/x2);
+    return b;
+}
+
+const getExpotentialPoints = function(b, start, steps){
+    const exponentialLine = [];
+    for (let i=0; i< start; i++){
+        exponentialLine.push({'y':0});
+    }
+    for (let i=1; i<=steps; i++){
+        exponentialLine.push({ 'y': ~~(b**i) })
+    }
+    return exponentialLine;
+}
+
+
+const plotGuideLine = function(config){
+    const {svg, x, y, data, xLabel, yLabel} = config;
+    const max = d3.max( data.map( row => row[yLabel]) );
+    const start = data.findIndex( row => row[yLabel]>0 );
+    const steps = data.length - start
+    const min = data[start][yLabel]
+    //console.log(min, max, steps, start);
+    const b = getExpotentialEquation(x2=steps, y2=max);
+    //const b = getExpotentialEquation(x1=min,y1=min,x2=steps, y2=max);
+    //const x1 = 1, y1 = min, x2 = steps, y2 = max;
+    //const b = (y2/y1)**(1/x2)
+    //console.log(b, b**steps)
+    yValues = getExpotentialPoints(b, start, steps);
+    xValues = data.map( row => { return {'x': row[xLabel] } })
+    const lineData = [];
+    for (let i=0; i<xValues.length; i++){
+        const row = {'x':xValues[i].x, 'y': yValues[i].y}
+        lineData.push(row);
+    }
+    //console.log(lineData)
+    
+    
+    const valueline = d3.line()
+            .x( d => x(d.x) )
+            .y( d => y(d.y) )
+            .curve(d3.curveMonotoneX);
+
+
+    var path = svg.append("path")
+        .data([lineData])
+        .attr("class", "line")
+        .style("stroke", 'rgba(125,125,125,0.3)')
+        .attr("d", valueline);
+    
+    // Variable to Hold Total Length
+    var duration = speed * 1000; //6000
+    var totalLength = path.node().getTotalLength();
+ 
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition() // Call Transition Method
+        .duration(duration) // Set Duration timing (ms)
+        .ease(d3.easeLinear) // Set Easing option
+        .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+
+}
+
+
 
 
 const plotData = function(data, xLabel, yLabels, colors){
@@ -38,14 +169,16 @@ const plotData = function(data, xLabel, yLabels, colors){
    
     yLabels.forEach( (col) => plotLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':col, color:colors[col]}))
 
+    //For single case draw guide lines for linear/exponential rates
+    if (yLabels.length == 1){
+        plotGuideLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':yLabels});
+        plotLinearLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':yLabels});
+    }
+
     svg.append('text')                                     
         .attr('x', 10)              
         .attr('y', -5)             
         .html('&#9884;&#65039; NOLA COVID-19 Data Visualizer &#9884;&#65039;');
-
-
-
-
 
             
 }
@@ -74,7 +207,7 @@ const plotLine = function(config){
         .attr("d", valueline);
     
     // Variable to Hold Total Length
-    var duration = 6000
+    var duration = speed * 1000; //6000
     var totalLength = path.node().getTotalLength();
  
     // Set Properties of Dash Array and Dash Offset and initiate Transition
