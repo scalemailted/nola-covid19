@@ -319,6 +319,7 @@ window.onload = async () => {
     //renderTable(data)
     collapsibleTable(data, 'COVID-19 Table - Total Counts', 'total');
     collapsibleTable(diffData, 'COVID-19 Table - Daily Differentials', 'differ');
+    initDisplayPercents();
 };
 
 
