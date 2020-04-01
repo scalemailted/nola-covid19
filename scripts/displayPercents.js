@@ -9,7 +9,6 @@ const initDisplayPercents = function(){
     displayPercentHead();
     for (let label of Object.keys(colorData)){
         if (label != 'Date'){
-            console.log(label)
             renderCard(label, colorData[label])
         }
     }
@@ -20,7 +19,6 @@ const renderCard = function(label,color){
     const index = diffData.length-1
     const todayData = diffData[index][label];
     const yesterTotalData = data[index-1][label];
-    console.log(todayData, yesterTotalData)
     const todayPercent = Math.ceil(todayData / yesterTotalData * 100 );
     const card= `<div class='card bg-light mx-0 px-0'>
                     <div class='card-head text-light h-100' style='background-color: ${color}'>

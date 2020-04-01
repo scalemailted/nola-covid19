@@ -20,7 +20,7 @@ const plotLinearLine = function(config){
     const start = data.findIndex( row => row[yLabel]>0 );
     const steps = data.length - start
     const min = data[start][yLabel]
-    console.log(min, max, steps, start);
+
     const b = getLinearEquation(x2=steps, y2=max);
     yValues = getLinearPoints(b, start, steps);
     xValues = data.map( row => { return {'x': row[xLabel] } })
@@ -29,7 +29,6 @@ const plotLinearLine = function(config){
         const row = {'x':xValues[i].x, 'y': yValues[i].y}
         lineData.push(row);
     }
-    console.log(lineData)
     
     
     const valueline = d3.line()
@@ -85,12 +84,10 @@ const plotGuideLine = function(config){
     const start = data.findIndex( row => row[yLabel]>0 );
     const steps = data.length - start
     const min = data[start][yLabel]
-    //console.log(min, max, steps, start);
     const b = getExpotentialEquation(x2=steps, y2=max);
     //const b = getExpotentialEquation(x1=min,y1=min,x2=steps, y2=max);
     //const x1 = 1, y1 = min, x2 = steps, y2 = max;
     //const b = (y2/y1)**(1/x2)
-    //console.log(b, b**steps)
     yValues = getExpotentialPoints(b, start, steps);
     xValues = data.map( row => { return {'x': row[xLabel] } })
     const lineData = [];
@@ -98,7 +95,6 @@ const plotGuideLine = function(config){
         const row = {'x':xValues[i].x, 'y': yValues[i].y}
         lineData.push(row);
     }
-    //console.log(lineData)
     
     
     const valueline = d3.line()
