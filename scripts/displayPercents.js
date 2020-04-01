@@ -19,7 +19,7 @@ const renderCard = function(label,color){
     const index = diffData.length-1
     const todayData = diffData[index][label];
     const yesterTotalData = data[index-1][label];
-    const todayPercent = Math.ceil(todayData / yesterTotalData * 100 );
+    const todayPercent = Math.round(todayData / yesterTotalData * 100 );
     const card= `<div class='card bg-light mx-0 px-0'>
                     <div class='card-head text-light h-100' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
