@@ -21,7 +21,9 @@ const initDisplayPercents = function(){
     }
     for (let label of Object.keys(colorData)){
         if (label != 'Date'){
-            renderTomorrowCard(label, colorData[label])
+            renderTomorrowTotalCard(label, colorData[label])
+            renderTomorrowValueCard(label, colorData[label])
+            renderTomorrowGrowthCard(label, colorData[label])
         }
     }
 
@@ -109,7 +111,7 @@ const displayValueHead = function(){
 }
 
 
-const renderTomorrowCard = function(label,color){
+const renderTomorrowTotalCard = function(label,color){
     const tomorrowData = getTomorrowValue(label, data)
     const card= `<div class='card bg-light mx-0 px-0'>
                     <div class='card-head text-light h-100' style='background-color: ${color}'>
@@ -119,5 +121,36 @@ const renderTomorrowCard = function(label,color){
                         <h4 class='card-text text-center font-weight-bold'>${tomorrowData}</h4>
                     </div>
                 </div>`;
-    document.getElementById('tomorrow-deck').innerHTML += card;
+    document.getElementById('tomorrow-total-deck').innerHTML += card;
+}
+
+const renderTomorrowValueCard = function(label,color){
+    const index = diffData.length-1
+    const totalData = data[index][label];
+    const tomorrowData = getTomorrowValue(label, data)
+    const card= `<div class='card bg-light mx-0 px-0'>
+                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                        <p class="card-text text-center"> ${label}</p>
+                    </div>
+                    <div class='card-body mx-0 px-0'>
+                        <h4 class='card-text text-center font-weight-bold'>${tomorrowData - totalData}</h4>
+                    </div>
+                </div>`;
+    document.getElementById('tomorrow-value-deck').innerHTML += card;
+}
+
+const renderTomorrowGrowthCard = function(label,color){
+    const index = diffData.length-1
+    const tomorrowData = getTomorrowValue(label, data)
+    const totalData = data[index][label];
+    const tomorrowPercent = Math.round( (tomorrowData-totalData) / totalData * 100 );
+    const card= `<div class='card bg-light mx-0 px-0'>
+                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                        <p class="card-text text-center"> ${label}</p>
+                    </div>
+                    <div class='card-body mx-0 px-0'>
+                        <h4 class='card-text text-center font-weight-bold'>+${tomorrowPercent}%</h4>
+                    </div>
+                </div>`;
+    document.getElementById('tomorrow-growth-deck').innerHTML += card;
 }

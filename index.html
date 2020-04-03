@@ -85,12 +85,19 @@
 
         <div class='container-fluid'>
             <hr>
-            <a data-toggle="collapse" data-target="#tomorrow-deck" aria-expanded="false" aria-controls="tomorrow-deck" onClick='hide("arrow")'>
-                <h3 class='bg-danger text-light text-center py-1'>Predictions for Tomorrow (Total Count) 
+            <a data-toggle="collapse" data-target="#tomorrowCollapse" aria-expanded="false" aria-controls="tomorrowCollapse" onClick='hide("arrow")'>
+                <h3 class='bg-danger text-light text-center py-1'>Predictions for Tomorrow
                     <span class='float-left pl-4'> <i id='arrow' class="fas fa-arrow-alt-circle-right"></i> </span>
                 </h3>
             </a>
-            <div class='card-deck mx-1 collapse' id='tomorrow-deck'></div>
+            <div class='collapse' id='tomorrowCollapse'>
+                <h3 class='my-3'>Expected Total Count:</h3>
+                <div class='card-deck mx-1' id='tomorrow-total-deck'></div>
+                <h3 class='my-3'>Expected New Counts:</h3>
+                <div class='card-deck mx-1' id='tomorrow-value-deck'></div>
+                <h3 class='my-3'>Expected Growths:</h3>
+                <div class='card-deck mx-1' id='tomorrow-growth-deck'></div>
+            </div>
         </div>
 
 
