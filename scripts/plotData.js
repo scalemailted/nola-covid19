@@ -1,3 +1,40 @@
+const plotPredictor = function(svg,x,y,feature,model,dataset){
+   
+    const lineData = fitModel(model, feature,dataset);
+    //console.log(lineData)
+    
+    const valueline = d3.line()
+            .x( d => x(d.x) )
+            .y( d => y(d.y) )
+            .curve(d3.curveMonotoneX);
+
+
+    var path = svg.append("path")
+        .data([lineData])
+        .attr("class", "line")
+        //.style("stroke", 'rgba(125,125,125,0.3)')
+        //.style("stroke", 'rgba(0,0,0,0.5)')
+        .style("stroke", colorData[feature])
+        .style("stroke-opacity", 0.35)
+        .attr("d", valueline);
+    
+    // Variable to Hold Total Length
+    var duration = speed * 1000; //6000
+    var totalLength = path.node().getTotalLength();
+ 
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition() // Call Transition Method
+        .duration(duration) // Set Duration timing (ms)
+        .ease(d3.easeLinear) // Set Easing option
+        .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+}
+
+
+
+
 const getLinearEquation = function(x2,y2){
     const b = y2/x2;
     return b;
@@ -163,13 +200,19 @@ const plotData = function(data, xLabel, yLabels, colors){
             .classed('grid', true)
             .call(xAxis)
    
-    yLabels.forEach( (col) => plotLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':col, color:colors[col]}))
+    if (drawType == 'Predictions' || drawType == 'Both')
+        yLabels.forEach( (col) => plotPredictor(svg,x,y,col,predictorType,data) )
+    if (drawType == 'Actuals' || drawType == 'Both')
+        yLabels.forEach( (col) => plotLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':col, color:colors[col]}))
 
     //For single case draw guide lines for linear/exponential rates
-    if (yLabels.length == 1){
-        plotGuideLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':yLabels});
-        plotLinearLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':yLabels});
-    }
+    //if (yLabels.length == 1){
+        //plotGuideLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':yLabels});
+        //plotLinearLine({'svg':svg, 'x':x, 'y':y, 'data':data, 'xLabel':xLabel, 'yLabel':yLabels});
+        //plotPredictor(svg,x,y,yLabels[0],'linear')
+        //plotPredictor(svg,x,y,yLabels[0],'polynomial')
+        //plotPredictor(svg,x,y,yLabels[0],'exponential')
+    //}
 
     svg.append('text')                                     
         .attr('x', 10)              

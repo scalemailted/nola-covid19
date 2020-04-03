@@ -2,6 +2,8 @@ const selections = new Set();
 let colorData;
 let isDailyData = true;
 let speed;
+let drawType;
+let predictorType;
 
 const addButton = function(label, color){
     const controllers = document.getElementById('controllers');
@@ -64,12 +66,42 @@ const animationHandler = function(e){
     getPlot();
 } 
 
+const initDrawTypes = function(){
+    const drawTypeInput = document.getElementById('drawTypes');
+    drawTypeInput.addEventListener('change', drawTypeHandler);
+    drawType = drawTypeInput.value
+}
+
+const drawTypeHandler = function(){
+    const drawTypeInput = document.getElementById('drawTypes');
+    drawType = drawTypeInput.value;
+    getPlot() 
+}
+
+const initPredictorTypes = function(){
+    const predictorTypeInput = document.getElementById('predictorTypes');
+    predictorTypeInput.addEventListener('change', predictorTypeHandler);
+    predictorType = predictorTypeInput.value
+}
+
+const predictorTypeHandler = function(){
+    const drawTypeInput = document.getElementById('predictorTypes');
+    predictorType = drawTypeInput.value;
+    getPlot(); 
+}
+
 const initControllers = function(colors){
     Object.keys(colors).forEach( key => addButton(key, colors[key]) )
     //labelList.forEach( label => addButton(label, colors[label]))
     colorData = colors;
     initDatasetController();
     initAnimationController();
+    initDrawTypes();
+    initPredictorTypes();
     ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'].forEach(label=>toggleSelection(label));
+}
+
+const hide = function(id){
+    document.getElementById(id).style = "visibility: hidden;"
 }
 

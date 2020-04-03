@@ -19,6 +19,11 @@ const initDisplayPercents = function(){
             renderValueCard(label, colorData[label])
         }
     }
+    for (let label of Object.keys(colorData)){
+        if (label != 'Date'){
+            renderTomorrowCard(label, colorData[label])
+        }
+    }
 
 }
 
@@ -101,4 +106,18 @@ const displayValueHead = function(){
     const header = document.getElementById('today-values');
     const today = data[data.length-1]['Date']
     header.innerText += ' ' +today.toDateString(); 
+}
+
+
+const renderTomorrowCard = function(label,color){
+    const tomorrowData = getTomorrowValue(label, data)
+    const card= `<div class='card bg-light mx-0 px-0'>
+                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                        <p class="card-text text-center"> ${label}</p>
+                    </div>
+                    <div class='card-body mx-0 px-0'>
+                        <h4 class='card-text text-center font-weight-bold'>${tomorrowData}</h4>
+                    </div>
+                </div>`;
+    document.getElementById('tomorrow-deck').innerHTML += card;
 }

@@ -10,6 +10,12 @@
 
         <script src="scripts/d3.v5.min.js"></script>
         <script src='scripts/getData.js'></script>
+        
+        <script src='scripts/regression.js'
+        ></script>
+        <!--
+        <script src='https://unpkg.com/simple-statistics@7.0.8/dist/simple-statistics.min.js'></script>
+        -->
         <link rel="stylesheet" href="styles/styles.css">
 
     </head>
@@ -35,6 +41,27 @@
                 <input class="form-control-range" type="range" id="animation-speed" name="animation-speed" min="0" max="10" value="4">
                 </div>
             </div>
+            <div class='col-3'>
+                <div class="form-group">
+                    <label>Predictor:</label>
+                    <select class="form-control" id='predictorTypes'>
+                        <option default value='bestfit'>Best Fit</option>
+                        <option value='linear'>Linear</option>
+                        <option value='polynomial'>Polynomial</option>
+                        <option value='exponential'>Exponential</option>
+                    </select>
+                </div>
+            </div>
+            <div class='col-3'>
+                <div class="form-group">
+                    <label>Show:</label>
+                    <select class="form-control" id='drawTypes'>
+                        <option default value='Both'>Both</option>
+                        <option value='Actuals'>Actuals</option>
+                        <option value='Predictions'>Regressions</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class='container-fluid'>
@@ -56,6 +83,16 @@
             <div class='card-deck mx-1' id='total-rate-deck'></div>
         </div>
 
+        <div class='container-fluid'>
+            <hr>
+            <a data-toggle="collapse" data-target="#tomorrow-deck" aria-expanded="false" aria-controls="tomorrow-deck" onClick='hide("arrow")'>
+                <h3 class='bg-danger text-light text-center py-1'>Predictions for Tomorrow (Total Count) 
+                    <span class='float-left pl-4'> <i id='arrow' class="fas fa-arrow-alt-circle-right"></i> </span>
+                </h3>
+            </a>
+            <div class='card-deck mx-1 collapse' id='tomorrow-deck'></div>
+        </div>
+
 
         <div id='tableData' class='container-fluid mt-2'>
             <hr>
@@ -74,6 +111,7 @@
         <script src='scripts/plotData.js'></script>
         <script src='scripts/displayTable.js'></script>
         <script src='scripts/displayPercents.js'></script>
+        <script src='scripts/predictors.js'></script>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" </script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"</script>
