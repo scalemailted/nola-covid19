@@ -187,6 +187,7 @@ const restoreRegionData = function(){
 
 const initParishData = async function(){
     let data = restoreParishData();
+    console.log(data)
     if (data === null){
         const url = getUrl("Cases");
         data = await requestTableData(url);
@@ -196,13 +197,13 @@ const initParishData = async function(){
             data = JSON.parse(e.data);
             console.log(data)
             Object.values(data).flat().forEach( e=> e.Date = new Date(e.Date))
-            datasets['Parish'] = data;
-            const regionData = await initRegionData(data);
-            datasets['Region'] = regionData 
             localStorage.setItem('parishData', JSON.stringify(data) );
-        }
-        
+        }        
     }
+    console.log(data)
+    datasets['Parish'] = data;
+    const regionData = await initRegionData(data);
+    datasets['Region'] = regionData;
     //return data;
 }
 
@@ -212,6 +213,7 @@ const initRegionData = async function(parishData){
         data = await getRegionData(parishData);
         localStorage.setItem('regionData', JSON.stringify(data) );
     }
+    datasets['Region'] = data
     return data;
 }
 
