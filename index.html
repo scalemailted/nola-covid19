@@ -10,9 +10,9 @@
 
         <script src="scripts/d3.v5.min.js"></script>
         <script src='scripts/getData.js'></script>
+        <script src='scripts/getParishData.js'></script>
         
-        <script src='scripts/regression.js'
-        ></script>
+        <script src='scripts/regression.js'></script>
         <!--
         <script src='https://unpkg.com/simple-statistics@7.0.8/dist/simple-statistics.min.js'></script>
         -->
@@ -33,9 +33,9 @@
         <svg id='view' width=0 height=0 ></svg>
 
         <div class='row container-fluid mt-2' id='aux-controllers'>
-            <div class='col-3'>
+            <div class='col-2'>
                 <div class="form-group">
-                <label class="formControlRange" for="animation-speed">Animation Speed:
+                <label class="formControlRange" for="animation-speed">Speed:
                     <button disabled class='btn btn-light btn-sm' id='speed-view'></button>
                 </label>
                 <input class="form-control-range" type="range" id="animation-speed" name="animation-speed" min="0" max="10" value="4">
@@ -62,12 +62,28 @@
                     </select>
                 </div>
             </div>
+            <div class='col-4'>
+                <label>Location:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-outline-secondary" type="button" id='locationTypeSelector' value='region'>Region</button>
+                    </div>
+                    <select class="custom-select" id="locationItemSelector">
+                      <option selected >All</option>
+                    </select>
+                  </div>
+            </div>
         </div>
 
         <div class='container-fluid'>
             <hr>
-            <h3 id='today-values'>New Reported Values for: </h3>
-            <p><i>Note: These are not the cumulative total values.</i></p>
+            <h3 id='total-values'>Total Counts for: </h3>
+            <div class='card-deck mx-1' id='total-value-deck'></div>
+        </div>
+
+        <div class='container-fluid'>
+            <hr>
+            <h3 id='today-values'>New Counts for: </h3>
             <div class='card-deck mx-1' id='daily-value-deck'></div>
         </div>
 

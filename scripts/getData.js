@@ -1,7 +1,7 @@
-const sheetId = '1SNiM5iJM8eAWj67O44JaapdkCDzOqU1I9AlteVxMKTI';
+const LASheetId = '1SNiM5iJM8eAWj67O44JaapdkCDzOqU1I9AlteVxMKTI';
 const key = "AIzaSyBYlTNZJsj4HXHpzs99ToTqGF9k9qhjEG8";
-const sheet = encodeURIComponent('LDH');
-const url=`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${sheet}?key=${key}`;
+const LAsheet = encodeURIComponent('LDH');
+const url=`https://sheets.googleapis.com/v4/spreadsheets/${LASheetId}/values/${LAsheet}?key=${key}`;
 
 
 const requestTableData = async function(url){

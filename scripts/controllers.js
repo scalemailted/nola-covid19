@@ -4,6 +4,8 @@ let isDailyData = true;
 let speed;
 let drawType;
 let predictorType;
+let locationType;
+let locationSelection;
 
 const addButton = function(label, color){
     const controllers = document.getElementById('controllers');
@@ -22,16 +24,24 @@ const toggleSelection = function(label){
         selections.delete(label)
         document.getElementById(label).style =`background-color:#eee;  color:${colorData[label]};`
     }
-    else if (label != 'Date'){
+    else if (label != 'Date'  ){
         selections.add(label)
         document.getElementById(label).style =`background-color:${colorData[label]};  color:white;`
     }
+    if (locationSelection !== 'All') updateLocationSelection();
     getPlot();
 }
 
 const getPlot = function(){
+    let data = datasets['All'];
+    //console.log(locationSelection)
+    if ( locationSelection != 'All'){
+        data = datasets[locationType][ locationSelection ]
+    }
+    //console.log(locationType, locationSelection, data)
     if (isDailyData) plotData(data,'Date', [...selections], colorData);
-    else plotData(diffData,'Date', [...selections], colorData);
+    else plotData( getDifferentialData(data),'Date', [...selections], colorData);
+    initDisplayPercents(data);
 }
 
 const initDatasetController = function(){
@@ -95,6 +105,7 @@ const initControllers = function(colors){
     //labelList.forEach( label => addButton(label, colors[label]))
     colorData = colors;
     initDatasetController();
+    initLocationSelector();
     initAnimationController();
     initDrawTypes();
     initPredictorTypes();
@@ -104,4 +115,68 @@ const initControllers = function(colors){
 const hide = function(id){
     document.getElementById(id).style = "visibility: hidden;"
 }
+
+const initRegionSelections = function(){
+    locationType = 'Region'
+    const locationInput = document.getElementById('locationItemSelector');
+    locationInput.innerHTML = `<option value='All' selected>All</option>`
+    for (let i=1; i<regionNames.length; i++ ){
+        locationInput.innerHTML += `<option value="${i}">${regionNames[i]}</option>`
+    }
+    locationSelection = document.getElementById('locationItemSelector').value;
+}
+
+const initParishSelections = function(){
+    locationType = 'Parish'
+    const locationInput = document.getElementById('locationItemSelector');
+    locationInput.innerHTML = `<option value='All' selected>All</option>`
+    const parishNames = regionsLA.flat().sort();
+    for (let parish of parishNames){
+        locationInput.innerHTML += `<option value='${parish}'>${parish}</option>`
+    }
+    locationSelection = document.getElementById('locationItemSelector').value;
+}
+
+const toggleLocationSelector = function(){
+    const button = document.getElementById('locationTypeSelector');
+    if (button.innerText == 'Region'){
+        button.innerText = 'Parish';
+        locationType = 'Parish'
+        initParishSelections();
+    }
+    else{
+        button.innerText = 'Region';
+        locationType = 'Region';
+        initRegionSelections();
+    }
+    getPlot();
+}
+
+const updateLocationSelection = function(){
+    locationSelection = document.getElementById('locationItemSelector').value;
+    locationSelection = +locationSelection ? +locationSelection : locationSelection;
+    if (locationSelection != 'All'){
+        if (selections.has('Hospitalized')){
+            selections.delete('Hospitalized')
+            document.getElementById('Hospitalized').style =`background-color:#eee;  color:${colorData['Hospitalized']};`
+        }
+        if (selections.has("Intubated (ventilator)")){
+            selections.delete("Intubated (ventilator)")
+            document.getElementById("Intubated (ventilator)").style =`background-color:#eee;  color:${colorData["Intubated (ventilator)"]};`
+        }
+    }
+    //console.log(locationSelection)
+    getPlot();
+}
+
+
+const initLocationSelector = function(){
+    initRegionSelections();
+    const button = document.getElementById('locationTypeSelector');
+    button.addEventListener('click', toggleLocationSelector);
+    const dropdown = document.getElementById('locationItemSelector');
+    dropdown.addEventListener('change', updateLocationSelection);
+}
+
+
 
