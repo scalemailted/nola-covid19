@@ -44,7 +44,7 @@ const renderTotalCard = function(label,color, data){
     const index = data.length-1
     const todayData = data[index][label];
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                    <div class='card-head text-light' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>
@@ -61,7 +61,7 @@ const renderDailyCard = function(label,color,data, diffData){
     const yesterTotalData = data[index-1][label];
     const todayPercent = Math.round(todayData / yesterTotalData * 100 );
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                    <div class='card-head text-light' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>
@@ -74,7 +74,7 @@ const renderDailyCard = function(label,color,data, diffData){
 const renderTotalRateCard = function(label, numerator, denominator){
     const rate = Number((numerator/denominator*100).toFixed(1)) 
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head bg-dark text-light h-100'>
+                    <div class='card-head bg-dark text-light'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>
@@ -122,7 +122,7 @@ const renderValueCard = function(label,color,data, diffData){
     const index = diffData.length-1
     const todayData = diffData[index][label];
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                    <div class='card-head text-light' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>
@@ -142,7 +142,7 @@ const displayValueHead = function(data){
 const renderTomorrowTotalCard = function(label,color, data){
     const tomorrowData = getTomorrowValue(label, data)
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                    <div class='card-head text-light' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>
@@ -158,7 +158,7 @@ const renderTomorrowValueCard = function(label,color, data, diffData){
     const totalData = data[index][label];
     const tomorrowData = getTomorrowValue(label, data)
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                    <div class='card-head text-light' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>
@@ -175,7 +175,7 @@ const renderTomorrowGrowthCard = function(label,color,data, diffData){
     const totalData = data[index][label];
     const tomorrowPercent = Math.round( (tomorrowData-totalData) / totalData * 100 );
     const card= `<div class='card bg-light mx-0 px-0'>
-                    <div class='card-head text-light h-100' style='background-color: ${color}'>
+                    <div class='card-head text-light' style='background-color: ${color}'>
                         <p class="card-text text-center"> ${label}</p>
                     </div>
                     <div class='card-body mx-0 px-0'>

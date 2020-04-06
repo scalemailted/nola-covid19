@@ -91,5 +91,11 @@ body {
   outline: none;
 }
 
+.card-head {
+  padding: 0 0;
+  min-height: 3em;
+  max-height: 3em;
+}
+
 
 
