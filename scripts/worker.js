@@ -1,3 +1,22 @@
+
+onmessage = function(e) {
+        parishTableData = e.data
+        cases = parishTableData.slice(0,69);
+        deaths = parishTableData.slice(70,139);
+        testState = parishTableData.slice(140,208);
+        testComm = parishTableData.slice(209,280);
+        parishData=initParishDictionary();
+        addFeatureToParishData(cases, parishData);
+        addFeatureToParishData(deaths, parishData);
+        addFeatureToParishData(testState, parishData, 'Tested (state)');
+        addFeatureToParishData(testComm, parishData, 'Tested (commercial)');
+        addTotalTestFeatureToParishData(parishData);
+        postMessage(JSON.stringify(parishData));
+    }
+
+
+
+
 const parishSheetId = '1E4-Zdrqo8oz8NCHB4e6r-OAK30KG4jOlD2b-3AYMgcQ';
 const getUrl = sheet => `https://sheets.googleapis.com/v4/spreadsheets/${parishSheetId}/values/${sheet}?key=${key}`;
 const sheets = ["Cases", "Regions"]
@@ -37,12 +56,12 @@ const getRegionData = async function(parishData){
     const regionData = initRegionDictionary();
     //const parishData = await getParishData();
     parishToRegionData(parishData, regionData);
-    addFeatureToRegionData(dates, ventsAvailable, regionData);
-    addFeatureToRegionData(dates, icuAvailable, regionData);
-    addFeatureToRegionData(dates, bedsAvailable, regionData);
-    addFeatureToRegionData(dates, ventsTaken, regionData);
-    addFeatureToRegionData(dates, icuTaken, regionData);
-    addFeatureToRegionData(dates, bedsTaken, regionData);
+    //addFeatureToRegionData(dates, ventsAvailable, regionData);
+    //addFeatureToRegionData(dates, icuAvailable, regionData);
+    //addFeatureToRegionData(dates, bedsAvailable, regionData);
+    //addFeatureToRegionData(dates, ventsTaken, regionData);
+    //addFeatureToRegionData(dates, icuTaken, regionData);
+    //addFeatureToRegionData(dates, bedsTaken, regionData);
 
     return regionData;
 }
@@ -138,7 +157,6 @@ const addFeatureToParishData = function(rawData, parishData, label){
 }
 
 
-/*
 const initParishData = async function(){
     let data = restoreParishData();
     if (data === null){
@@ -147,13 +165,11 @@ const initParishData = async function(){
     }
     return data;
 }
-*/
 
 const restoreParishData = function(){
     if ( localStorage.getItem('parishData') ){
         const json = localStorage.getItem('parishData');
         const data = JSON.parse(json);
-        //console.log(data)
         Object.values(data).flat().forEach( e=> e.Date = new Date(e.Date))
         if ( Object.values(data).flat().some( day=> isToday(day.Date)) ){
             return data
@@ -162,7 +178,6 @@ const restoreParishData = function(){
     return null;
 }
 
-/*
 const initRegionData = async function(parishData){
     let data = restoreRegionData();
     if (data === null){
@@ -171,7 +186,7 @@ const initRegionData = async function(parishData){
     }
     return data;
 }
-*/
+
 const restoreRegionData = function(){
     if ( localStorage.getItem('regionData') ){
         const json = localStorage.getItem('regionData');
@@ -184,34 +199,4 @@ const restoreRegionData = function(){
     return null;
 }
 
-
-const initParishData = async function(){
-    let data = restoreParishData();
-    if (data === null){
-        const url = getUrl("Cases");
-        data = await requestTableData(url);
-        const myWorker = new Worker("scripts/worker.js");
-        myWorker.postMessage(data);
-        myWorker.onmessage = async function(e) {
-            data = JSON.parse(e.data);
-            console.log(data)
-            Object.values(data).flat().forEach( e=> e.Date = new Date(e.Date))
-            datasets['Parish'] = data;
-            const regionData = await initRegionData(data);
-            datasets['Region'] = regionData 
-            localStorage.setItem('parishData', JSON.stringify(data) );
-        }
-        
-    }
-    //return data;
-}
-
-const initRegionData = async function(parishData){
-    let data = restoreRegionData();
-    if (data === null){
-        data = await getRegionData(parishData);
-        localStorage.setItem('regionData', JSON.stringify(data) );
-    }
-    return data;
-}
 

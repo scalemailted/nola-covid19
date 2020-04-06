@@ -356,9 +356,6 @@ window.onload = async () => {
     datasets['All'] = stateData;
     const colors = getColors(stateData);
     initControllers(colors)
-    const parishData = await initParishData();
-    const regionData = await initRegionData(parishData);
-    datasets = { 'Parish': parishData, 'Region': regionData, 'All': stateData}
     //const colors = getColors(stateData);
     //initControllers(colors)
     //plotData(data,'Date', ['Cases', 'Deaths', 'Hospitalized', 'Intubated (ventilator)'], colors);
@@ -366,6 +363,14 @@ window.onload = async () => {
     collapsibleTable(stateData, 'COVID-19 Table - Total Counts', 'total');
     collapsibleTable( getDifferentialData(stateData), 'COVID-19 Table - Daily Differentials', 'differ');
     initDisplayPercents(stateData);
+    //const parishData = await initParishData();
+    //const regionData = await initRegionData();
+    //datasets = { 'Parish': parishData, 'Region': regionData, 'All': stateData}
+    try{
+        await initParishData();
+    }catch(e){
+        console.log(e)
+    }
 };
 
 
