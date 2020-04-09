@@ -196,6 +196,7 @@ const initParishData = async function(){
             data = JSON.parse(e.data);
             Object.values(data).flat().forEach( e=> e.Date = new Date(e.Date))
             localStorage.setItem('parishData', JSON.stringify(data) );
+            datasets['Parish'] = data;
             const regionData = await initRegionData(data);
             datasets['Region'] = regionData;
         }        
